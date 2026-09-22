@@ -1,24 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import Register from './auth/Register'
+import Login from './auth/Login'
 
 function App() {
-  const [paises, setPaises] = useState<any[]>([])
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/paises')
-      .then((res) => res.json())
-      .then((json) => setPaises(json.data))
-      .catch((err) => console.error(err))
-  }, [])
+  const [vista, setVista] = useState<'login' | 'registro'>('login')
 
   return (
     <div>
-      <h1>Bitácora de Viajes Prueba</h1>
-      <h2>Países</h2>
-      <ul>
-        {paises.map((pais) => (
-          <li key={pais.id}>{pais.nombrePais}</li>
-        ))}
-      </ul>
+      <h1>Bitácora de Viajes</h1>
+      <nav>
+        <button onClick={() => setVista('login')}>Iniciar sesión</button>
+        <button onClick={() => setVista('registro')}>Registrarse</button>
+      </nav>
+      {vista === 'login' ? <Login /> : <Register />}
     </div>
   )
 }
