@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div>
-      <h1>Bitácora de Viajes</h1>
+      <h1>Bitácora de alumnos</h1>
       <nav>
         <button onClick={() => setVista('login')}>Iniciar sesión</button>
         <button onClick={() => setVista('registro')}>Registrarse</button>
