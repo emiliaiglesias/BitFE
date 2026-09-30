@@ -1,6 +1,13 @@
 import { useState } from 'react'
+import type { Usuario } from '../types'
 
-function Login() {
+// Props: lo que el componente padre (App) le pasa a Login.
+// onLogin es una función que Login llama cuando el login sale bien.
+interface LoginProps {
+  onLogin: (usuario: Usuario) => void
+}
+
+function Login({ onLogin }: LoginProps) {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -26,7 +33,8 @@ function Login() {
       const data = await res.json()
 
       if (res.ok) {
-        setMensaje(`Bienvenido/a, ${data.data.nombre}!`)
+        // En vez de solo mostrar un mensaje, le avisamos a App quién entró
+        onLogin(data.data)
       } else {
         setMensaje(data.message || 'Error al iniciar sesión')
       }
@@ -40,11 +48,11 @@ function Login() {
       <h2>Iniciar sesión</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email: </label>
+          <label>Email</label>
           <input name="email" type="email" value={form.email} onChange={handleChange} />
         </div>
         <div>
-          <label>Contraseña: </label>
+          <label>Contraseña</label>
           <input name="password" type="password" value={form.password} onChange={handleChange} />
         </div>
         <button type="submit">Ingresar</button>

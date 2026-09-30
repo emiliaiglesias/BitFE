@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:wght@400;600&display=swap');
+
+.timeline {
+  --tl-fondo: #eef3f4;
+  --tl-papel: #ffffff;
+  --tl-tinta: #17313b;
+  --tl-suave: #5b6f76;
+  --tl-ruta: #3c7a89;
+  --tl-sol: #e8a33d;
+
+  --tl-col-fecha: 5.5rem;
+  --tl-col-punto: 1.5rem;
+  --tl-espacio: 1rem;
+
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  box-sizing: border-box;
+  background: var(--tl-fondo);
+  color: var(--tl-tinta);
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  text-align: left;
+}
+
+.timeline-titulo {
+  margin: 0 0 2rem;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--tl-tinta);
+}
+
+.timeline-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cada viaje es una fila de tres columnas: fecha | punto | tarjeta */
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--tl-col-fecha) var(--tl-col-punto) 1fr;
+  column-gap: var(--tl-espacio);
+  padding-bottom: 1.75rem;
+}
+
+/* La línea punteada: el "recorrido" que une un viaje con el siguiente */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--tl-col-fecha) + var(--tl-espacio) + var(--tl-col-punto) / 2 - 1px);
+  border-left: 2px dashed var(--tl-ruta);
+  opacity: 0.55;
+}
+
+/* En el último viaje la línea termina en el punto */
+.timeline-item:last-child::before {
+  bottom: auto;
+  height: 1.5rem;
+}
+
+.timeline-fecha {
+  padding-top: 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: right;
+  color: var(--tl-suave);
+}
+
+.timeline-punto {
+  position: relative;
+  justify-self: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-top: 1.2rem;
+  border-radius: 50%;
+  background: var(--tl-sol);
+  box-shadow: 0 0 0 4px var(--tl-fondo);
+}
+
+.viaje-card {
+  padding: 1rem 1.25rem 1.25rem;
+  border-radius: 0.75rem;
+  background: var(--tl-papel);
+  border: 1px solid #d6e1e3;
+}
+
+.viaje-autor {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.viaje-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--tl-tinta);
+  color: var(--tl-papel);
+  font-size: 0.875rem;
+}
+
+.viaje-username {
+  margin-left: 0.375rem;
+  font-weight: 400;
+  color: var(--tl-suave);
+}
+
+.viaje-nombre {
+  margin: 0 0 0.375rem;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.viaje-fechas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--tl-suave);
+}
+
+.viaje-dias {
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: #dcebee;
+  color: var(--tl-ruta);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.viaje-descripcion {
+  margin: 0.875rem 0 0;
+  max-width: 60ch;
+  line-height: 1.55;
+}
+
+.timeline-estado {
+  max-width: 46rem;
+  margin: 2rem auto;
+  padding: 0 1.25rem;
+  text-align: left;
+}
+
+.timeline-estado--error {
+  color: #a3372b;
+}
+
+/* Celulares: la fecha pasa arriba de la tarjeta y la línea queda a la izquierda */
+@media (max-width: 560px) {
+  .timeline-item {
+    grid-template-columns: var(--tl-col-punto) 1fr;
+    column-gap: 0.75rem;
+  }
+
+  .timeline-item::before {
+    left: calc(var(--tl-col-punto) / 2 - 1px);
+  }
+
+  .timeline-fecha {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 0;
+    margin-bottom: 0.375rem;
+    text-align: left;
+  }
+
+  .timeline-punto {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0.3rem;
+  }
+
+  .viaje-card {
+    grid-column: 2;
+  }
+}
