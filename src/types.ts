@@ -18,3 +18,35 @@ export interface Viaje {
   createdAt: string
   creador: Usuario
 }
+
+export interface Lugar {
+  id: number
+  nombre: string
+  descripcion?: string
+  calle?: string
+  altura?: number
+  latitud: number
+  longitud: number
+  tipo?: 'hospedaje' | 'visita' // columna discriminadora de la jerarquía ISA
+}
+
+export interface Localidad {
+  id: number
+  nombreLocalidad: string
+  descripcionLocalidad?: string
+}
+
+// Un punto del itinerario mientras se arma el formulario: todavía no existe
+// en la base, por eso no tiene id. Al guardar el viaje se crea como
+// Hospedaje o Visita según "tipo".
+export interface PuntoRecorrido {
+  tipo: 'hospedaje' | 'visita'
+  nombre: string
+  descripcion?: string
+  calle?: string
+  altura?: number
+  latitud: number
+  longitud: number
+  localidad: number // id de la localidad
+  localidadNombre: string // solo para mostrarlo en la lista
+}
